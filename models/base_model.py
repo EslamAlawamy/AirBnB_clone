@@ -2,6 +2,7 @@
 """ all common attributes/methods for other classes """
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -29,6 +30,7 @@ class BaseModel:
     def save(self):
         """ updates the public instance attribute """
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """
