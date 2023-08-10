@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Store first object """
 import json
-
+from models.base_model import BaseModel
 
 class FileStorage:
 	""" class FileStorage """
@@ -24,8 +24,8 @@ class FileStorage:
 		for key, value in FileStorage.__objects.items():
         	    dictionary[key] = value.to_dict()
 
-		with open(FileStorage.__file_path, 'w') as f:
-           		json.dump(dictionary, f)
+		with open(FileStorage.__file_path, 'w', encoding="utf-8") as f:
+           		json.dump(dictionary, f, indent=2)
 
 	def reload(self):
 		"""
@@ -33,6 +33,8 @@ class FileStorage:
 		to __objects (only if the
 		JSON file (__file_path)
 		"""
-		with open(FileStorage.__file_path, 'r') as f:
-			for key, value in json.load(f).items():
-				self.new(dct[value['__class__']](**value))
+		with open(self.__file_path, "r", encoding='utf-8') as f:
+			json_objs = json.load(f)
+                
+		for key, val in json_objs.items():
+			self.__objects[key] = BaseModel(**val) 

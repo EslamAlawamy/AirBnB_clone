@@ -2,7 +2,7 @@
 """ all common attributes/methods for other classes """
 import uuid
 from datetime import datetime
-from models import storage
+import models
 
 
 class BaseModel:
@@ -13,7 +13,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
-            storage.new(self)
+            models.storage.new(self)
         else:
             for key, value in kwargs.items():
                 if key != "__class__":
@@ -31,7 +31,7 @@ class BaseModel:
     def save(self):
         """ updates the public instance attribute """
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """
