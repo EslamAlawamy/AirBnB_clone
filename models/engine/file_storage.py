@@ -2,6 +2,7 @@
 """ Store first object """
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 class FileStorage:
 	""" class FileStorage """
@@ -33,8 +34,12 @@ class FileStorage:
 		to __objects (only if the
 		JSON file (__file_path)
 		"""
+		models = {'User' : User,'BaseModel' : BaseModel}
+
 		with open(self.__file_path, "r", encoding='utf-8') as f:
 			json_objs = json.load(f)
-                
-		for key, val in json_objs.items():
-			self.__objects[key] = BaseModel(**val) 
+
+		for key, value in json_objs.items():
+			for model, cls in models.items():
+				if value["__class__"] == model:
+					self.__objects[key] = cls(**value)
