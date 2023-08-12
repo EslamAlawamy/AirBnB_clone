@@ -107,6 +107,48 @@ class HBNBCommand(cmd.Cmd):
                     li.append(str(obj))
             print(li)
 
+    def do_update(self, args):
+        """
+        Updates an instance based on the class name and
+        id by adding or updating attribute
+        """
+        splits = args.split()
+        if len(splits) == 0:
+            print("** class name missing **")
+            return None
+
+        elif len(splits) == 1:
+            if splits[0] in self.__models:
+                print("** instance id missing **")
+                return None
+            else:
+                print("** class doesn't exist **")
+                return None
+
+        all_objs = storage.all()
+        if f"{splits[0]}.{splits[1]}" in all_objs:
+            if len(splits) == 2:
+                print("** attribute name missing **")
+                return None
+            elif len(splits) == 3:
+                print("** value missing **")
+                return None
+        else:
+            print("** no instance found **")
+            return None
+        if splits[3].isdigit():
+            attr_value = int(splits[3])
+        else:
+            try:
+                attr_value = float(splits[3])
+            except ValueError:
+                attr_value = splits[3].replace('"', "")
+        for key, obj in all_objs.items():
+            if f"{splits[0]}.{splits[1]}" == key:
+                setattr(obj, splits[2], attr_value)
+                storage.save()
+                return None
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
