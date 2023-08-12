@@ -30,6 +30,20 @@ class TestBaseModel(unittest.TestCase):
         my_model.save()
         self.assertNotEqual(my_base.updated_at, prev_updated_at)
 
+     def test_to_dict_method(self):
+        my_base = BaseModel()
+        my_base.name = "My First Model"
+        my_base.my_number = 89
+        my_base_json = my_base.to_dict()
+        self.assertIsInstance(my_base_json, dict)
+        self.assertEqual(my_base_json['__class__'], 'BaseModel')
+        self.assertEqual(my_base_json['name'], "My First Model")
+        self.assertEqual(my_base_json['my_number'], 89)
+        self.assertIsInstance(datetime.strptime(my_base_json['created_at'], "%Y-%m-%dT%H:%M:%S.%f"),
+                              datetime)
+        self.assertIsInstance(datetime.strptime(my_base_json['updated_at'], "%Y-%m-%dT%H:%M:%S.%f"),
+                              datetime)
+
 
     if __name__ == '__main__':
         nittest.main()
