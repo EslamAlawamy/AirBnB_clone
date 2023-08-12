@@ -4,11 +4,13 @@
 import cmd
 import json
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 class HBNBCommand(cmd.Cmd):
-
+	__models = ["User", "BaseModel"]
 	prompt = "(hbnb) "
+
 	def do_quit(self, line):
 		"""Quit command to exit the program
 		"""
@@ -26,11 +28,11 @@ class HBNBCommand(cmd.Cmd):
 		pass
 	def do_create(self, arg):
 		"""Creates a new instance of BaseModel"""
-		if arg == "BaseModel":
-			obj = BaseModel()
-			storage.save()
+		if arg in self.__models:
+			obj = eval(arg)()
+			obj.save()
 			print(obj.id)
-		elif arg != "BaseModel":
+		elif arg not in self.__models:
 			print("** class name missing **")
 		else:
 			print("** class doesn't exist **")
@@ -42,7 +44,7 @@ class HBNBCommand(cmd.Cmd):
 			print("** class name missing **")
 			return None
 		elif len(splits) == 1:
-			if splits[0] == "BaseModel":
+			if splits[0] in self.__models:
 				print("** instance id missing **")
 				return None
 			else:
@@ -61,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
 			print("** class name missing **")
 			return None
 		elif len(splits) == 1:
-			if splits[0] == "BaseModel":
+			if splits[0] in self.__models:
 				print("** instance id missing **")
 				return None
 			else:
@@ -78,13 +80,17 @@ class HBNBCommand(cmd.Cmd):
 	def do_all(self, args):
 		"""Prints all string representation of all instances based or not on the class name"""
 		all_objs = storage.all()
+		if not args:
+			print([str(all_objs) for obj in all_objs.values()])
+			return
 		splits = args.split()
-		if splits[0] != "BaseModel":
+		if splits[0] not in self.__models:
 			print("** class doesn't exist **")
 		else:
 			li = []
 			for obj in all_objs.values():
-				li.append(str(obj))
+				if obj.__class__.__name__ == splits[0]:
+					li.append(str(obj))
 			print(li)
 
 if __name__ == '__main__':
