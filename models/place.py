@@ -2,9 +2,10 @@
 """ Place model """
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """ Place class """
-    
+
     city_id = ""
     user_id = ""
     name = ""

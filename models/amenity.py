@@ -2,8 +2,8 @@
 """ Amenity model """
 from models.base_model import BaseModel
 
+
 class Amenity(BaseModel):
-	"""represent Amenity class"""
+    """represent Amenity class"""
 
-
-	name = ""
+    name = ""

@@ -2,8 +2,8 @@
 """ State model """
 from models.base_model import BaseModel
 
+
 class State(BaseModel):
-	"""represent User class"""
+    """represent User class"""
 
-
-	name = ""
+    name = ""
