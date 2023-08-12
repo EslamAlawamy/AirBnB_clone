@@ -1,69 +1,74 @@
 #!/usr/bin/python3
-""" Unittest Base Model """
+"""Unittest for base model
+"""
 import unittest
 from models.base_model import BaseModel
+from models import storage
+from datetime import datetime
 
 
 class TestBaseModel(unittest.TestCase):
-    """ TestBaseModel Class """
+    """
+    test class for the max_integer() function.
+    """
+    my_model = BaseModel()
+    my_model.name = "Binita Rai"
+    base = BaseModel()
+    base.name = "My First Model"
+    base.my_number = 89
 
-    def test_attributes_initialization(self):
-        """ test init function attributes """
-        my_base = BaseModel()
-        
-        self.assertEqual(my_base.name, "")
-        self.assertEqual(my_base.my_number, 0)
-        self.assertIsInstance(my_base.id, str)
-        self.assertIsInstance(my_base.created_at, datetime)
-        self.assertIsInstance(my_base.updated_at, datetime)
+    def test_create_instance_without_kwargs(self):
+        """
+        create an instance of class without kwargs
+        """
+        self.assertIsInstance(self.base, BaseModel)
+        self.assertIsInstance(self.base.id, str)
+        self.assertIsInstance(self.base.created_at, datetime)
+        self.assertIsInstance(self.base.updated_at, datetime)
+        self.assertEqual(self.base.name, "My First Model")
+        self.assertEqual(self.base.my_number, 89)
 
-    def test_str_method(self):
-        """ str test """
-        my_model = BaseModel()
-        str_representation = f"[BaseModel] ({my_base.id}) {my_base.__dict__}"
-        self.assertEqual(str(my_base), str_representation)
+    def test_create_instance_with_kwargs(self):
+        """
+        create an instance of class using kwargs
+        """
+        my_base_json = self.base.to_dict()
+        new_base = BaseModel(**my_base_json)
+        self.assertIsInstance(new_base, BaseModel)
+        self.assertIsInstance(new_base.id, str)
+        self.assertIsInstance(new_base.created_at, datetime)
+        self.assertIsInstance(new_base.updated_at, datetime)
+        self.assertEqual(new_base.name, "My First Model")
+        self.assertEqual(new_base.my_number, 89)
+        self.assertNotEqual(new_base, self.base)
+        self.assertDictEqual(new_base.__dict__, self.base.__dict__)
 
-    def test_save_method(self):
-        """ save test """
-        my_base = BaseModel()
-        prev_updated_at = my_model.updated_at
-        my_model.save()
-        self.assertNotEqual(my_base.updated_at, prev_updated_at)
+    def test_to_dict(self):
+        """
+            test to_dict class method
+        """
+        to_dict_returned_dict = self.base.to_dict()
+        expected_dic = self.base.__dict__.copy()
+        expected_dic["__class__"] = self.base.__class__.__name__
+        expected_dic["updated_at"] = self.base.updated_at.isoformat()
+        expected_dic["created_at"] = self.base.created_at.isoformat()
+        self.assertDictEqual(expected_dic, to_dict_returned_dict)
 
-     def test_to_dict_method(self):
-         """  to dict test """
-        my_base = BaseModel()
-        my_base.name = "My First Model"
-        my_base.my_number = 89
-        my_base_json = my_base.to_dict()
-        self.assertIsInstance(my_base_json, dict)
-        self.assertEqual(my_base_json['__class__'], 'BaseModel')
-        self.assertEqual(my_base_json['name'], "My First Model")
-        self.assertEqual(my_base_json['my_number'], 89)
-        self.assertIsInstance(datetime.strptime(my_base_json['created_at'], "%Y-%m-%dT%H:%M:%S.%f"),
-                              datetime)
-        self.assertIsInstance(datetime.strptime(my_base_json['updated_at'], "%Y-%m-%dT%H:%M:%S.%f"),
-                              datetime)
+    def test_save(self):
+        '''
+            Checks that after updating the instance; the dates differ in the
+            updated_at attribute.
+        '''
+        old_update = self.my_model.updated_at
+        self.my_model.save()
+        self.assertNotEqual(self.my_model.updated_at, old_update)
 
-    def test_to_dict_with_custom_attrs(self):
-        """ test """
-        my_base = BaseModel()
-        my_base.custom_attr = "Custom Value"
-        my_base_json = my_base.to_dict()
-        self.assertEqual(my_base_json['custom_attr'], "Custom Value")
+    def test_str(self):
+        """
+            test str method
 
-    def test_from_dict_to_instance(self):
-        """ test """
-        my_base = BaseModel()
-        my_base.name = "My First Model"
-        my_base.my_number = 89
-        my_base_json = my_model.to_dict()
-        new_model = BaseModel(**my_base_json)
-        self.assertEqual(my_base.id, new_model.id)
-        self.assertEqual(my_base.name, new_model.name)
-        self.assertEqual(my_base.my_number, new_model.my_number)
-        self.assertEqual(my_base.created_at, new_model.created_at)
-        self.assertEqual(my_base.updated_at, new_model.updated_at)
-        
-    if __name__ == '__main__':
-        unittest.main()
+            check for string representaion
+        """
+        n = self.base.__class__.__name__
+        expected_str = f"[{n}] ({self.base.id}) <{self.base.__dict__}>"
+        self.assertEqual(self.base.__str__(), expected_str)
