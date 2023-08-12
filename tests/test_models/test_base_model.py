@@ -31,6 +31,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(my_base.updated_at, prev_updated_at)
 
      def test_to_dict_method(self):
+         """  to dict test """
         my_base = BaseModel()
         my_base.name = "My First Model"
         my_base.my_number = 89
