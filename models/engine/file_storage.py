@@ -12,10 +12,10 @@ from models.review import Review
 
 class FileStorage:
 	""" class FileStorage """
-	
+
 	__file_path = "file.json"
 	__objects = {}
-	
+
 	def all(self):
 		""" returns the dictionary __objects """
 		return FileStorage.__objects
@@ -29,7 +29,7 @@ class FileStorage:
 		""" serializes __objects to the JSON file (path: __file_path) """
 		dictionary = {}
 		for key, value in FileStorage.__objects.items():
-        	    dictionary[key] = value.to_dict()
+        		dictionary[key] = value.to_dict()
 
 		with open(FileStorage.__file_path, 'w', encoding="utf-8") as f:
            		json.dump(dictionary, f, indent=2)
@@ -40,8 +40,8 @@ class FileStorage:
 		to __objects (only if the
 		JSON file (__file_path)
 		"""
-		models = {'User' : User, 'BaseModel' : BaseModel, 'State' : State ,'City' : City,
-                        'Amenity' : Amenity, 'Place' : Place, 'Review' : Review}
+		models = {'User': User, 'BaseModel': BaseModel, 'State': State, 'City': City,
+                        'Amenity': Amenity, 'Place': Place, 'Review': Review}
 		with open(self.__file_path, "r", encoding='utf-8') as f:
 			json_objs = json.load(f)
 
