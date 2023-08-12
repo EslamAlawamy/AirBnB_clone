@@ -66,4 +66,4 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(my_base.updated_at, new_model.updated_at)
         
     if __name__ == '__main__':
-        nittest.main()
+        unittest.main()
