@@ -30,6 +30,40 @@ class TestBaseModel(unittest.TestCase):
         my_model.save()
         self.assertNotEqual(my_base.updated_at, prev_updated_at)
 
+     def test_to_dict_method(self):
+         """  to dict test """
+        my_base = BaseModel()
+        my_base.name = "My First Model"
+        my_base.my_number = 89
+        my_base_json = my_base.to_dict()
+        self.assertIsInstance(my_base_json, dict)
+        self.assertEqual(my_base_json['__class__'], 'BaseModel')
+        self.assertEqual(my_base_json['name'], "My First Model")
+        self.assertEqual(my_base_json['my_number'], 89)
+        self.assertIsInstance(datetime.strptime(my_base_json['created_at'], "%Y-%m-%dT%H:%M:%S.%f"),
+                              datetime)
+        self.assertIsInstance(datetime.strptime(my_base_json['updated_at'], "%Y-%m-%dT%H:%M:%S.%f"),
+                              datetime)
 
+    def test_to_dict_with_custom_attrs(self):
+        """ test """
+        my_base = BaseModel()
+        my_base.custom_attr = "Custom Value"
+        my_base_json = my_base.to_dict()
+        self.assertEqual(my_base_json['custom_attr'], "Custom Value")
+
+    def test_from_dict_to_instance(self):
+        """ test """
+        my_base = BaseModel()
+        my_base.name = "My First Model"
+        my_base.my_number = 89
+        my_base_json = my_model.to_dict()
+        new_model = BaseModel(**my_base_json)
+        self.assertEqual(my_base.id, new_model.id)
+        self.assertEqual(my_base.name, new_model.name)
+        self.assertEqual(my_base.my_number, new_model.my_number)
+        self.assertEqual(my_base.created_at, new_model.created_at)
+        self.assertEqual(my_base.updated_at, new_model.updated_at)
+        
     if __name__ == '__main__':
-        nittest.main()
+        unittest.main()
