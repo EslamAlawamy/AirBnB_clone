@@ -332,5 +332,32 @@
     "created_at": "2023-08-13T02:22:51.463950",
     "updated_at": "2023-08-13T02:22:51.463953",
     "__class__": "Amenity"
+  },
+  "BaseModel.d6abf7f3-8a9a-401f-9f75-94ec6d5b3b58": {
+    "id": "d6abf7f3-8a9a-401f-9f75-94ec6d5b3b58",
+    "created_at": "2023-08-13T02:27:54.698554",
+    "updated_at": "2023-08-13T02:27:54.701500",
+    "name": "Binita Rai",
+    "__class__": "BaseModel"
+  },
+  "BaseModel.31b1c778-e2e5-4097-8153-179863b5d008": {
+    "id": "31b1c778-e2e5-4097-8153-179863b5d008",
+    "created_at": "2023-08-13T02:27:54.698568",
+    "updated_at": "2023-08-13T02:27:54.698569",
+    "name": "My First Model",
+    "my_number": 89,
+    "__class__": "BaseModel"
+  },
+  "City.474bcca5-4315-4c28-ace7-1d98ffd96aac": {
+    "id": "474bcca5-4315-4c28-ace7-1d98ffd96aac",
+    "created_at": "2023-08-13T02:27:54.698845",
+    "updated_at": "2023-08-13T02:27:54.698846",
+    "__class__": "City"
+  },
+  "Amenity.5bbe741e-0335-4445-88b7-4af886c3ea0e": {
+    "id": "5bbe741e-0335-4445-88b7-4af886c3ea0e",
+    "created_at": "2023-08-13T02:27:54.701271",
+    "updated_at": "2023-08-13T02:27:54.701272",
+    "__class__": "Amenity"
   }
 }
