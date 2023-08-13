@@ -70,5 +70,5 @@ class TestBaseModel(unittest.TestCase):
             check for string representaion
         """
         n = self.base.__class__.__name__
-        expected_str = f"[{n}] ({self.base.id}) <{self.base.__dict__}>"
+        expected_str = f"[{n}] ({self.base.id}) {self.base.__dict__}"
         self.assertEqual(self.base.__str__(), expected_str)
