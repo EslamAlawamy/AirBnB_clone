@@ -27,8 +27,10 @@ class TestFileStorage(unittest.TestCase):
         self.storage.reload()
         all_objs = self.storage.all()
         self.assertTrue(isinstance(all_objs, dict))
-        self.assertIn(self.base_model.__class__.__name__ + "." + self.base_model.id, all_objs)
-        reloaded_model = all_objs[self.base_model.__class__.__name__ + "." + self.base_model.id]
+        self.assertIn(self.base_model.__class__.__name__ +
+                      "." + self.base_model.id, all_objs)
+        reloaded_model = all_objs[self.base_model.__class__.__name__ +
+                                  "." + self.base_model.id]
         self.assertEqual(reloaded_model.id, self.base_model.id)
         self.assertEqual(reloaded_model.name, self.base_model.name)
         self.assertEqual(reloaded_model.my_number, self.base_model.my_number)
