@@ -156,9 +156,18 @@ class HBNBCommand(cmd.Cmd):
         
         args = line.split('.')
         if args[0] in self.__models:
-            var = args[1]
-            var = var.split('(', 1)
-            self.do_all(args[0])
-
+            cls = args[1]
+            cls = cls.split('(', 1)
+            # class.all()
+            if cls[0] == "all":
+                self.do_all(args[0])
+            # class.count
+            if cls[0] == "count":
+                count = 0
+                all_objs = storage.all()
+                for key, value in all_objs.items():
+                    if args[0] == key.split('.')[0]:
+                        count += 1
+                print(count)
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
