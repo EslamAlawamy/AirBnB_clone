@@ -24,4 +24,4 @@ class TestConstructor(unittest.TestCase):
         obj_key = f"BaseModel.{new_base_model.id}"
         self.assertIn(obj_key, self.FileStorage().all())
         reloaded_obj = self.FileStorage().all()[obj_key]
-        self.assertEqual(reloaded_obj.updated_at, new_base_m
+        self.assertEqual(reloaded_obj.updated_at, new_base_m)

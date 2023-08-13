@@ -118,11 +118,11 @@ class HBNBCommand(cmd.Cmd):
             return None
 
         elif len(splits) == 1:
-            if splits[0] in self.__models:
-                print("** instance id missing **")
+            if splits[0] not in self.__models:
+                print("** class doesn't exist **")
                 return None
             else:
-                print("** class doesn't exist **")
+                print("** instance id missing **")
                 return None
 
         all_objs = storage.all()
@@ -149,6 +149,16 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
                 return None
 
+    def default(self, line):
+        """
+        Update your command interpreter (console.py) to retrieve all instances of a class by using: <class name>.all()
+        """
+        
+        args = line.split('.')
+        if args[0] in self.__models:
+            var = args[1]
+            var = var.split('(', 1)
+            self.do_all(args[0])
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
