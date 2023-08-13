@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """command interpreter."""
 
+import re
 import cmd
 import json
 from models.base_model import BaseModel
@@ -153,21 +154,32 @@ class HBNBCommand(cmd.Cmd):
         """
         Update your command interpreter (console.py) to retrieve all instances of a class by using: <class name>.all()
         """
-        
-        args = line.split('.')
-        if args[0] in self.__models:
-            cls = args[1]
-            cls = cls.split('(', 1)
+
+        tokens = re.split(r'[().]', line)
+        tokens = [item.replace('"', '') for item in tokens] 
+        class_name = tokens[0]
+        function_name = tokens[1]
+        instance_id = tokens[2]
+        if class_name in self.__models:
             # class.all()
-            if cls[0] == "all":
-                self.do_all(args[0])
+            if function_name == "all":
+                self.do_all(class_name)
+                return None
+
             # class.count
-            if cls[0] == "count":
+            if function_name == "count":
                 count = 0
                 all_objs = storage.all()
                 for key, value in all_objs.items():
-                    if args[0] == key.split('.')[0]:
+                    if class_name == key.split('.')[0]:
                         count += 1
                 print(count)
+                return None
+
+            #<class name>.show(<id>)
+            if function_name == "show":
+                self.do_show(class_name + " " + instance_id)
+                return None
+                
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
