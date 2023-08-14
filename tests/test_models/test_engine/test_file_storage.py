@@ -12,7 +12,6 @@ class TestConstructor(unittest.TestCase):
 
     def test_default_values(self):
         """ test default value """
-        
         initial_count = len(self.FileStorage().all())
         old_dict = self.FileStorage().all().copy()
         new_base_model = BaseModel()
