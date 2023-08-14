@@ -154,46 +154,58 @@ class HBNBCommand(cmd.Cmd):
         """
         Update your command interpreter (console.py) to retrieve all instances of a class by using: <class name>.all()
         """
+        if '.' in line:
+            tokens = re.split(r'[().]', line)
+            try:
+                dictionary = tokens[2].split(", ", 1)[1]
+            except IndexError:
+                pass
+            tokens = [item.replace('"', '') for item in tokens]
+            tokens.pop()
+            class_name = tokens[0]
+            function_name = tokens[1]
+            instance_id = tokens[2]
+            if class_name in self.__models:
+                # <class name>.all()
+                if function_name == "all":
+                    self.do_all(class_name)
+                    return None
 
-        tokens = re.split(r'[().]', line)
-        tokens = [item.replace('"', '') for item in tokens]
-        tokens.pop()
-        class_name = tokens[0]
-        function_name = tokens[1]
-        instance_id = tokens[2]
-        if class_name in self.__models:
-            # <class name>.all()
-            if function_name == "all":
-                self.do_all(class_name)
-                return None
+                # <class name>.count()
+                if function_name == "count":
+                    count = 0
+                    all_objs = storage.all()
+                    for key, value in all_objs.items():
+                        if class_name == key.split('.')[0]:
+                            count += 1
+                    print(count)
+                    return None
 
-            # <class name>.count()
-            if function_name == "count":
-                count = 0
-                all_objs = storage.all()
-                for key, value in all_objs.items():
-                    if class_name == key.split('.')[0]:
-                        count += 1
-                print(count)
-                return None
+                #<class name>.show(<id>)
+                if function_name == "show":
+                    self.do_show(class_name + " " + instance_id)
+                    return None
 
-            #<class name>.show(<id>)
-            if function_name == "show":
-                self.do_show(class_name + " " + instance_id)
-                return None
+                #<class name>.destroy(<id>)
+                if function_name == "destroy":
+                    self.do_destroy(class_name + " " + instance_id)
+                    return None
 
-            #<class name>.destroy(<id>)
-            if function_name == "destroy":
-                self.do_destroy(class_name + " " + instance_id)
-                return None
+                if function_name == "update":
+                    #<class name>.update(<id>, <dictionary representation>)
+                    args = tokens[2].split(", ")
+                    instance_id = args[0]
 
-            #<class name>.update(<id>, <attribute name>, <attribute value>)
-            if function_name == "update":
-                args = tokens[2].split(", ")
-                instance_id = args[0]
-                attr_name = args[1]
-                attr_value = args[2]
-                self.do_update(class_name + " " + instance_id + " " + attr_name + " " + attr_value + " ")
+                    if '{' in dictionary:
+                        att = json.loads(dictionary.replace("'", '"'))
+                        for key, value in att.items():
+                            self.do_update(class_name + " " + instance_id + " " + key + " " + str(value))
+
+                    else:
+                        #<class name>.update(<id>, <attribute name>, <attribute value>)
+                        attr_name = args[1]
+                        attr_value = args[2]
+                        self.do_update(class_name + " " + instance_id + " " + attr_name + " " + attr_value)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
