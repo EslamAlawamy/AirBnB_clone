@@ -152,7 +152,8 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         """
-        Update your command interpreter (console.py) to retrieve all instances of a class by using: <class name>.all()
+        Update your command interpreter (console.py) to retrieve
+        all instances of a class by using: <class name>.all()
         """
         if '.' in line:
             tokens = re.split(r'[().]', line)
@@ -181,31 +182,36 @@ class HBNBCommand(cmd.Cmd):
                     print(count)
                     return None
 
-                #<class name>.show(<id>)
+                # <class name>.show(<id>)
                 if function_name == "show":
                     self.do_show(class_name + " " + instance_id)
                     return None
 
-                #<class name>.destroy(<id>)
+                # <class name>.destroy(<id>)
                 if function_name == "destroy":
                     self.do_destroy(class_name + " " + instance_id)
                     return None
 
                 if function_name == "update":
-                    #<class name>.update(<id>, <dictionary representation>)
+                    # <class name>.update(<id>, <dictionary representation>)
                     args = tokens[2].split(", ")
                     instance_id = args[0]
 
                     if '{' in dictionary:
                         att = json.loads(dictionary.replace("'", '"'))
                         for key, value in att.items():
-                            self.do_update(class_name + " " + instance_id + " " + key + " " + str(value))
+                            self.do_update(class_name + " " +
+                                           instance_id + " " +
+                                           key + " " + str(value))
 
                     else:
-                        #<class name>.update(<id>, <attribute name>, <attribute value>)
+                        # <class name>.update
+                        # (<id>, <attribute name>, <attribute value>)
                         attr_name = args[1]
                         attr_value = args[2]
-                        self.do_update(class_name + " " + instance_id + " " + attr_name + " " + attr_value)
+                        self.do_update(class_name + " " +
+                                       instance_id + " " +
+                                       attr_name + " " + attr_value)
 
-if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    if __name__ == '__main__':
+        HBNBCommand().cmdloop()
