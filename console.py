@@ -55,17 +55,21 @@ class HBNBCommand(cmd.Cmd):
         if len(splits) == 0:
             print("** class name missing **")
             return None
+
+        if len(splits) == 0:
+            print("** class name missing **")
+            return None
+
         elif len(splits) == 1:
             if splits[0] in self.__models:
                 print("** instance id missing **")
                 return None
-            else:
-                print("** class doesn't exist **")
-                return None
+
         all_objs = storage.all()
         if f"{splits[0]}.{splits[1]}" in all_objs:
             print("{}".format(all_objs[f"{splits[0]}.{splits[1]}"]))
             return None
+
         print("** no instance found **")
 
     def do_destroy(self, args):
@@ -74,13 +78,16 @@ class HBNBCommand(cmd.Cmd):
         if len(splits) == 0:
             print("** class name missing **")
             return None
+
+        if len(splits) == 0:
+            print("** class name missing **")
+            return None
+
         elif len(splits) == 1:
             if splits[0] in self.__models:
                 print("** instance id missing **")
                 return None
-            else:
-                print("** class doesn't exist **")
-                return None
+
         all_objs = storage.all()
         if f"{splits[0]}.{splits[1]}" in all_objs:
             del all_objs[f"{splits[0]}.{splits[1]}"]
