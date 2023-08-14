@@ -118,6 +118,10 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return None
 
+        if splits[0] not in self.__models:
+            print("** class doesn't exist **")
+            return None
+
         elif len(splits) == 1:
             if splits[0] not in self.__models:
                 print("** class doesn't exist **")
@@ -213,5 +217,6 @@ class HBNBCommand(cmd.Cmd):
                                        instance_id + " " +
                                        attr_name + " " + attr_value)
 
-    if __name__ == '__main__':
-        HBNBCommand().cmdloop()
+
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
