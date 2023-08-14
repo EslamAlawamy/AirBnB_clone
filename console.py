@@ -56,8 +56,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return None
 
-        if len(splits) == 0:
-            print("** class name missing **")
+        if splits[0] not in self.__models:
+            print("** class doesn't exist **")
             return None
 
         elif len(splits) == 1:
@@ -79,8 +79,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return None
 
-        if len(splits) == 0:
-            print("** class name missing **")
+        if splits[0] not in self.__models:
+            print("** class doesn't exist **")
             return None
 
         elif len(splits) == 1:
