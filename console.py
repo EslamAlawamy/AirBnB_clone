@@ -156,7 +156,8 @@ class HBNBCommand(cmd.Cmd):
         """
 
         tokens = re.split(r'[().]', line)
-        tokens = [item.replace('"', '') for item in tokens] 
+        tokens = [item.replace('"', '') for item in tokens]
+        tokens.pop()
         class_name = tokens[0]
         function_name = tokens[1]
         instance_id = tokens[2]
@@ -185,6 +186,14 @@ class HBNBCommand(cmd.Cmd):
             if function_name == "destroy":
                 self.do_destroy(class_name + " " + instance_id)
                 return None
+
+            #<class name>.update(<id>, <attribute name>, <attribute value>)
+            if function_name == "update":
+                args = tokens[2].split(", ")
+                instance_id = args[0]
+                attr_name = args[1]
+                attr_value = args[2]
+                self.do_update(class_name + " " + instance_id + " " + attr_name + " " + attr_value + " ")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
