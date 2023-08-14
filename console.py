@@ -161,12 +161,12 @@ class HBNBCommand(cmd.Cmd):
         function_name = tokens[1]
         instance_id = tokens[2]
         if class_name in self.__models:
-            # class.all()
+            # <class name>.all()
             if function_name == "all":
                 self.do_all(class_name)
                 return None
 
-            # class.count
+            # <class name>.count()
             if function_name == "count":
                 count = 0
                 all_objs = storage.all()
@@ -180,6 +180,11 @@ class HBNBCommand(cmd.Cmd):
             if function_name == "show":
                 self.do_show(class_name + " " + instance_id)
                 return None
-                
+
+            #<class name>.destroy(<id>)
+            if function_name == "destroy":
+                self.do_destroy(class_name + " " + instance_id)
+                return None
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
