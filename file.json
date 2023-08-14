@@ -489,5 +489,57 @@
     "created_at": "2023-08-14T05:42:11.311314",
     "updated_at": "2023-08-14T05:42:11.311316",
     "__class__": "Amenity"
+  },
+  "BaseModel.25b43523-4b35-41c5-9b92-fe9a9f68a2eb": {
+    "id": "25b43523-4b35-41c5-9b92-fe9a9f68a2eb",
+    "created_at": "2023-08-14T05:48:28.216157",
+    "updated_at": "2023-08-14T05:48:28.229146",
+    "name": "Binita Rai",
+    "__class__": "BaseModel"
+  },
+  "BaseModel.16a263a9-fbcc-411f-a4fd-0091ca71308d": {
+    "id": "16a263a9-fbcc-411f-a4fd-0091ca71308d",
+    "created_at": "2023-08-14T05:48:28.216188",
+    "updated_at": "2023-08-14T05:48:28.216188",
+    "name": "My First Model",
+    "my_number": 89,
+    "__class__": "BaseModel"
+  },
+  "City.31a08626-6a99-422e-9288-5534e4cec67a": {
+    "id": "31a08626-6a99-422e-9288-5534e4cec67a",
+    "created_at": "2023-08-14T05:48:28.216469",
+    "updated_at": "2023-08-14T05:48:28.216471",
+    "__class__": "City"
+  },
+  "User.2c8b64a8-498b-435e-9381-06b020b431ff": {
+    "id": "2c8b64a8-498b-435e-9381-06b020b431ff",
+    "created_at": "2023-08-14T05:48:28.223381",
+    "updated_at": "2023-08-14T05:48:28.223385",
+    "__class__": "User"
+  },
+  "User.18587f7d-18a3-4267-a41b-2b73f38e1cb4": {
+    "id": "18587f7d-18a3-4267-a41b-2b73f38e1cb4",
+    "created_at": "2023-08-14T05:48:28.226984",
+    "updated_at": "2023-08-14T05:48:28.226986",
+    "__class__": "User"
+  },
+  "BaseModel.b95cb071-eb17-43f3-afc8-818da30f478d": {
+    "id": "b95cb071-eb17-43f3-afc8-818da30f478d",
+    "created_at": "2023-08-14T05:48:28.227836",
+    "updated_at": "2023-08-14T05:48:28.227838",
+    "first_name": "'TutTrueee'",
+    "__class__": "BaseModel"
+  },
+  "Amenity.29f7c1ca-f9c3-4d84-8e1d-aa283ca1a590": {
+    "id": "29f7c1ca-f9c3-4d84-8e1d-aa283ca1a590",
+    "created_at": "2023-08-14T05:48:28.228858",
+    "updated_at": "2023-08-14T05:48:28.228860",
+    "__class__": "Amenity"
+  },
+  "User.f4bfdd7f-7706-4238-86fd-fe2b6ab5ef36": {
+    "id": "f4bfdd7f-7706-4238-86fd-fe2b6ab5ef36",
+    "created_at": "2023-08-14T05:51:36.912862",
+    "updated_at": "2023-08-14T05:51:36.912876",
+    "__class__": "User"
   }
 }
